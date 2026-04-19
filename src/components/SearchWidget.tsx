@@ -1,0 +1,103 @@
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Calendar } from "@/components/ui/calendar";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { CITIES, FLEET } from "@/data/fleet";
+import { Car, Bike, MapPin, CalendarIcon, Search } from "lucide-react";
+import { format } from "date-fns";
+
+export function SearchWidget() {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  const [tab, setTab] = useState<"cars" | "bikes">("cars");
+  const [city, setCity] = useState("");
+  const [carId, setCarId] = useState("");
+  const [pickup, setPickup] = useState<Date | undefined>();
+  const [returnD, setReturnD] = useState<Date | undefined>();
+
+  const onSearch = () => {
+    const params = new URLSearchParams();
+    if (city) params.set("city", city);
+    if (tab === "bikes") params.set("cat", "motorbike");
+    if (carId) params.set("car", carId);
+    navigate(`/cars?${params.toString()}`);
+  };
+
+  const carOptions = FLEET.filter((c) => (tab === "bikes" ? c.category === "motorbike" : c.category !== "motorbike"));
+
+  return (
+    <div className="rounded-3xl bg-rose-card p-3 shadow-soft sm:p-4">
+      <Tabs value={tab} onValueChange={(v) => setTab(v as "cars" | "bikes")}>
+        <TabsList className="mb-3 h-auto rounded-full bg-transparent p-0">
+          <TabsTrigger value="cars" className="rounded-full px-5 py-1.5 text-xs font-semibold uppercase tracking-wide data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+            <Car className="me-1.5 h-3.5 w-3.5" />{t("search.cars")}
+          </TabsTrigger>
+          <TabsTrigger value="bikes" className="rounded-full px-5 py-1.5 text-xs font-semibold uppercase tracking-wide data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+            <Bike className="me-1.5 h-3.5 w-3.5" />{t("search.bikes")}
+          </TabsTrigger>
+        </TabsList>
+      </Tabs>
+
+      <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-5">
+        <Field label={t("search.pickup")} icon={<MapPin className="h-3.5 w-3.5" />}>
+          <Select value={city} onValueChange={setCity}>
+            <SelectTrigger className="h-9 border-0 bg-transparent px-0 text-sm shadow-none focus:ring-0">
+              <SelectValue placeholder={t("search.selectLocation")} />
+            </SelectTrigger>
+            <SelectContent>
+              {CITIES.map((c) => (<SelectItem key={c} value={c}>{c}</SelectItem>))}
+            </SelectContent>
+          </Select>
+        </Field>
+
+        <Field label={t("search.car")} icon={<Car className="h-3.5 w-3.5" />}>
+          <Select value={carId} onValueChange={setCarId}>
+            <SelectTrigger className="h-9 border-0 bg-transparent px-0 text-sm shadow-none focus:ring-0">
+              <SelectValue placeholder={t("search.selectCar")} />
+            </SelectTrigger>
+            <SelectContent>
+              {carOptions.map((c) => (<SelectItem key={c.id} value={c.id}>{c.brand} {c.model}</SelectItem>))}
+            </SelectContent>
+          </Select>
+        </Field>
+
+        <Field label={t("search.pickupDate")} icon={<CalendarIcon className="h-3.5 w-3.5" />}>
+          <Popover>
+            <PopoverTrigger className="flex h-9 w-full items-center text-start text-sm">
+              {pickup ? format(pickup, "dd MMM yyyy") : <span className="text-muted-foreground">{t("search.selectDate")}</span>}
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-0"><Calendar mode="single" selected={pickup} onSelect={setPickup} /></PopoverContent>
+          </Popover>
+        </Field>
+
+        <Field label={t("search.returnDate")} icon={<CalendarIcon className="h-3.5 w-3.5" />}>
+          <Popover>
+            <PopoverTrigger className="flex h-9 w-full items-center text-start text-sm">
+              {returnD ? format(returnD, "dd MMM yyyy") : <span className="text-muted-foreground">{t("search.selectDate")}</span>}
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-0"><Calendar mode="single" selected={returnD} onSelect={setReturnD} /></PopoverContent>
+          </Popover>
+        </Field>
+
+        <Button onClick={onSearch} className="h-full min-h-[3.25rem] rounded-2xl bg-primary text-sm font-semibold uppercase tracking-wide text-primary-foreground hover:bg-primary-dark">
+          <Search className="me-2 h-4 w-4" />{t("search.cta")}
+        </Button>
+      </div>
+    </div>
+  );
+}
+
+function Field({ label, icon, children }: { label: string; icon: React.ReactNode; children: React.ReactNode }) {
+  return (
+    <div className="rounded-2xl bg-background/80 px-3 py-2 ring-1 ring-border/60">
+      <div className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+        {icon}<span>{label}</span>
+      </div>
+      <div className="-mt-0.5">{children}</div>
+    </div>
+  );
+}
