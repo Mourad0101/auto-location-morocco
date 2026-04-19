@@ -1,16 +1,40 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
+import { Hero } from "@/components/Hero";
+import { CategorySection } from "@/components/CategorySection";
+import { PartnersStrip } from "@/components/PartnersStrip";
+import { HowItWorks } from "@/components/HowItWorks";
+import { TrustSignals } from "@/components/TrustSignals";
+import { Testimonials } from "@/components/Testimonials";
+import { ChatbotWidget } from "@/components/ChatbotWidget";
+import { FLEET } from "@/data/fleet";
+import { useTranslation } from "react-i18next";
 
-// IMPORTANT: Fully REPLACE this with your own code
-const PlaceholderIndex = () => {
-  // PLACEHOLDER: Replace this entire return statement with the user's app.
-  // The inline background color is intentionally not part of the design system.
+const Index = () => {
+  const { t } = useTranslation();
+  const economy = FLEET.filter((c) => c.category === "economy").slice(0, 3);
+  const suv = FLEET.filter((c) => c.category === "suv").slice(0, 3);
+  const luxury = FLEET.filter((c) => c.category === "luxury").slice(0, 3);
+  const bikes = FLEET.filter((c) => c.category === "motorbike").slice(0, 3);
+
   return (
-    <div className="flex min-h-screen items-center justify-center" style={{ backgroundColor: '#fcfbf8' }}>
-      <img data-lovable-blank-page-placeholder="REMOVE_THIS" src="/placeholder.svg" alt="Your app will live here!" />
+    <div className="min-h-screen">
+      <Navbar />
+      <main>
+        <Hero />
+        <PartnersStrip />
+        <CategorySection title={t("categories.economy") + " Cars"} slug="economy" cars={economy} />
+        <CategorySection title="SUVs" slug="suv" cars={suv} />
+        <CategorySection title={t("categories.luxury") + " Cars"} slug="luxury" cars={luxury} />
+        <CategorySection title={t("categories.motorbike")} slug="motorbike" cars={bikes} />
+        <TrustSignals />
+        <HowItWorks />
+        <Testimonials />
+      </main>
+      <Footer />
+      <ChatbotWidget />
     </div>
   );
 };
-
-const Index = PlaceholderIndex;
 
 export default Index;
