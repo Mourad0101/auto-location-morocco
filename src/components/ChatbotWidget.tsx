@@ -4,9 +4,10 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/co
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Bot, Send, Scissors, AlertTriangle } from "lucide-react";
+import { Send, Scissors, AlertTriangle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { cn } from "@/lib/utils";
+import chatbotLogo from "@/assets/chatbot-logo.svg";
 
 interface Msg { role: "user" | "assistant"; content: string }
 
@@ -63,10 +64,10 @@ export function ChatbotWidget() {
         <SheetTrigger asChild>
           <button
             aria-label="Open chat"
-            className="relative grid h-14 w-14 place-items-center rounded-full bg-primary text-primary-foreground shadow-glow transition hover:scale-105 hover:bg-primary-dark"
+            className="relative grid h-14 w-14 place-items-center rounded-2xl shadow-glow transition hover:scale-105"
           >
-            <Bot className="h-6 w-6" />
-            <span className="pulse-dot absolute end-1 top-1 h-2.5 w-2.5 rounded-full bg-emerald-400 ring-2 ring-background" />
+            <img src={chatbotLogo} alt="Auto Location" className="h-full w-full" />
+            <span className="pulse-dot absolute -end-0.5 -top-0.5 h-2.5 w-2.5 rounded-full bg-emerald-400 ring-2 ring-background" />
           </button>
         </SheetTrigger>
       </div>
