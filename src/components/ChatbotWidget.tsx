@@ -57,7 +57,7 @@ export function ChatbotWidget() {
     <Sheet open={open} onOpenChange={setOpen}>
       <div className="fixed bottom-5 end-5 z-50 flex items-end gap-3">
         {!open && (
-          <div className="hidden rounded-full bg-primary px-4 py-2 text-xs font-medium text-primary-foreground shadow-glow sm:block">
+          <div className="hidden rounded-full bg-primary px-4 py-2 text-xs font-medium text-primary-foreground shadow-glow lg:block">
             {t("chatbot.greeting")}
           </div>
         )}
