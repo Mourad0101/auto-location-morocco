@@ -30,21 +30,19 @@ export function SearchWidget() {
   const carOptions = FLEET.filter((c) => (tab === "bikes" ? c.category === "motorbike" : c.category !== "motorbike"));
 
   return (
-    <div className="rounded-3xl border border-border/60 bg-card p-4 shadow-card sm:p-5">
+    <div className="rounded-3xl bg-rose-strong p-4 shadow-card sm:p-6">
       <Tabs value={tab} onValueChange={(v) => setTab(v as "cars" | "bikes")}>
-        <TabsList className="mb-4 h-auto w-full justify-start gap-1 rounded-full bg-muted p-1 sm:w-auto">
+        <TabsList className="mb-5 h-auto w-full justify-start gap-2 rounded-full bg-transparent p-0 sm:w-auto">
           <TabsTrigger
             value="cars"
-            className="rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-wide data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-sm"
+            className="rounded-full border border-primary/30 bg-card px-6 py-2 text-xs font-bold uppercase tracking-wider text-primary data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-glow"
           >
-            <Car className="me-1.5 h-3.5 w-3.5" />
             {t("search.cars")}
           </TabsTrigger>
           <TabsTrigger
             value="bikes"
-            className="rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-wide data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-sm"
+            className="rounded-full border border-primary/30 bg-card px-6 py-2 text-xs font-bold uppercase tracking-wider text-primary data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-glow"
           >
-            <Bike className="me-1.5 h-3.5 w-3.5" />
             {t("search.bikes")}
           </TabsTrigger>
         </TabsList>
@@ -98,7 +96,7 @@ export function SearchWidget() {
         <Button
           onClick={onSearch}
           size="lg"
-          className="h-12 w-full rounded-2xl bg-primary px-6 text-sm font-semibold uppercase tracking-wide text-primary-foreground shadow-glow hover:bg-primary-dark sm:col-span-2 lg:col-span-1 lg:h-auto lg:w-auto lg:self-stretch"
+          className="h-12 w-full rounded-2xl bg-maroon px-8 text-sm font-bold uppercase tracking-widest text-maroon-foreground shadow-soft hover:bg-maroon/90 sm:col-span-2 lg:col-span-1 lg:h-auto lg:w-auto lg:self-stretch"
         >
           <Search className="me-2 h-4 w-4" />
           {t("search.cta")}

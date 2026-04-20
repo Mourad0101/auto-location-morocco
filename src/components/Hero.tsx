@@ -12,9 +12,9 @@ export function Hero() {
         <div className="grid items-center gap-8 lg:grid-cols-12">
           {/* Copy */}
           <div className="relative z-10 animate-fade-in-up lg:col-span-7">
-            <h1 className="hero-headline text-[2.5rem] leading-[0.95] text-foreground sm:text-5xl md:text-6xl lg:text-[68px]">
-              {t("hero.title")}
-              <span className="mt-2 block text-primary">{t("hero.brand")}</span>
+            <h1 className="hero-headline text-[2.25rem] leading-[0.95] sm:text-5xl md:text-6xl lg:text-[68px]">
+              <span className="block text-primary">{t("hero.title")}</span>
+              <span className="mt-2 block text-maroon">{t("hero.brand")}</span>
             </h1>
 
             <p className="mt-6 max-w-md text-base leading-relaxed text-muted-foreground md:text-lg">
