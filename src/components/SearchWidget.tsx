@@ -30,19 +30,27 @@ export function SearchWidget() {
   const carOptions = FLEET.filter((c) => (tab === "bikes" ? c.category === "motorbike" : c.category !== "motorbike"));
 
   return (
-    <div className="rounded-3xl bg-rose-card p-3 shadow-soft sm:p-4">
+    <div className="rounded-3xl border border-border/60 bg-card p-4 shadow-card sm:p-5">
       <Tabs value={tab} onValueChange={(v) => setTab(v as "cars" | "bikes")}>
-        <TabsList className="mb-3 h-auto rounded-full bg-transparent p-0">
-          <TabsTrigger value="cars" className="rounded-full px-5 py-1.5 text-xs font-semibold uppercase tracking-wide data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
-            <Car className="me-1.5 h-3.5 w-3.5" />{t("search.cars")}
+        <TabsList className="mb-4 h-auto w-full justify-start gap-1 rounded-full bg-muted p-1 sm:w-auto">
+          <TabsTrigger
+            value="cars"
+            className="rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-wide data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-sm"
+          >
+            <Car className="me-1.5 h-3.5 w-3.5" />
+            {t("search.cars")}
           </TabsTrigger>
-          <TabsTrigger value="bikes" className="rounded-full px-5 py-1.5 text-xs font-semibold uppercase tracking-wide data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
-            <Bike className="me-1.5 h-3.5 w-3.5" />{t("search.bikes")}
+          <TabsTrigger
+            value="bikes"
+            className="rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-wide data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-sm"
+          >
+            <Bike className="me-1.5 h-3.5 w-3.5" />
+            {t("search.bikes")}
           </TabsTrigger>
         </TabsList>
       </Tabs>
 
-      <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-5">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-[1.2fr_1.2fr_1fr_1fr_auto]">
         <Field label={t("search.pickup")} icon={<MapPin className="h-3.5 w-3.5" />}>
           <Select value={city} onValueChange={setCity}>
             <SelectTrigger className="h-9 border-0 bg-transparent px-0 text-sm shadow-none focus:ring-0">
@@ -70,7 +78,9 @@ export function SearchWidget() {
             <PopoverTrigger className="flex h-9 w-full items-center text-start text-sm">
               {pickup ? format(pickup, "dd MMM yyyy") : <span className="text-muted-foreground">{t("search.selectDate")}</span>}
             </PopoverTrigger>
-            <PopoverContent className="w-auto p-0"><Calendar mode="single" selected={pickup} onSelect={setPickup} /></PopoverContent>
+            <PopoverContent className="w-auto p-0" align="start">
+              <Calendar mode="single" selected={pickup} onSelect={setPickup} />
+            </PopoverContent>
           </Popover>
         </Field>
 
@@ -79,12 +89,19 @@ export function SearchWidget() {
             <PopoverTrigger className="flex h-9 w-full items-center text-start text-sm">
               {returnD ? format(returnD, "dd MMM yyyy") : <span className="text-muted-foreground">{t("search.selectDate")}</span>}
             </PopoverTrigger>
-            <PopoverContent className="w-auto p-0"><Calendar mode="single" selected={returnD} onSelect={setReturnD} /></PopoverContent>
+            <PopoverContent className="w-auto p-0" align="start">
+              <Calendar mode="single" selected={returnD} onSelect={setReturnD} />
+            </PopoverContent>
           </Popover>
         </Field>
 
-        <Button onClick={onSearch} className="h-full min-h-[3.25rem] rounded-2xl bg-primary text-sm font-semibold uppercase tracking-wide text-primary-foreground hover:bg-primary-dark">
-          <Search className="me-2 h-4 w-4" />{t("search.cta")}
+        <Button
+          onClick={onSearch}
+          size="lg"
+          className="h-12 w-full rounded-2xl bg-primary px-6 text-sm font-semibold uppercase tracking-wide text-primary-foreground shadow-glow hover:bg-primary-dark sm:col-span-2 lg:col-span-1 lg:h-auto lg:w-auto lg:self-stretch"
+        >
+          <Search className="me-2 h-4 w-4" />
+          {t("search.cta")}
         </Button>
       </div>
     </div>
@@ -93,9 +110,10 @@ export function SearchWidget() {
 
 function Field({ label, icon, children }: { label: string; icon: React.ReactNode; children: React.ReactNode }) {
   return (
-    <div className="rounded-2xl bg-background/80 px-3 py-2 ring-1 ring-border/60">
+    <div className="rounded-2xl bg-background px-4 py-2.5 ring-1 ring-border transition hover:ring-primary/40">
       <div className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
-        {icon}<span>{label}</span>
+        {icon}
+        <span className="truncate">{label}</span>
       </div>
       <div className="-mt-0.5">{children}</div>
     </div>
