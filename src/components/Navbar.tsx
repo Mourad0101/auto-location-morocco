@@ -3,8 +3,9 @@ import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Menu, Globe, Moon, Sun, Scissors } from "lucide-react";
+import { Menu, Globe, Moon, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
+import navbarLogo from "@/assets/navbar-logo.svg";
 
 const langs = [
   { code: "fr", label: "Français" },
@@ -42,9 +43,7 @@ export function Navbar() {
     <header className="sticky top-0 z-40 border-b border-border/60 bg-background/85 backdrop-blur-md">
       <div className="container flex h-16 items-center justify-between gap-4">
         <Link to="/" className="flex items-center gap-2">
-          <span className="grid h-9 w-9 place-items-center rounded-lg bg-primary text-primary-foreground shadow-glow">
-            <Scissors className="h-5 w-5 -rotate-45" />
-          </span>
+          <img src={navbarLogo} alt="Auto Location" className="h-9 w-9" />
           <span className="text-lg font-bold tracking-tight">
             Auto <span className="text-primary">Location</span>
           </span>
