@@ -96,7 +96,7 @@ export function SearchWidget() {
         <Button
           onClick={onSearch}
           size="lg"
-          className="h-12 w-full rounded-2xl bg-primary px-6 text-sm font-semibold uppercase tracking-wide text-primary-foreground shadow-glow hover:bg-primary-dark sm:col-span-2 lg:col-span-1 lg:h-auto lg:w-auto lg:self-stretch"
+          className="h-12 w-full rounded-2xl bg-maroon px-8 text-sm font-bold uppercase tracking-widest text-maroon-foreground shadow-soft hover:bg-maroon/90 sm:col-span-2 lg:col-span-1 lg:h-auto lg:w-auto lg:self-stretch"
         >
           <Search className="me-2 h-4 w-4" />
           {t("search.cta")}
